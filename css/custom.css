@@ -1,0 +1,44 @@
+html {
+	font-family: 'Arial', serif;
+}
+
+/* Sortable tables */
+table.sortable thead {
+    background-color:#eee;
+    color:#666666;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+table.sortable thead th.sorttable_nosort {
+    cursor: default;
+}
+
+@media print {
+    @page
+    {
+        size: auto;   /* auto is the current printer page size */
+        margin: 20px;  /* this affects the margin in the printer settings */
+        counter-increment: page;
+        counter-reset: pages 1;
+        content: "Page " counter(page) " of " counter(pages);
+    }
+    /* CUSTOM */
+    .no-border-print {
+        border: 0;
+    }
+    #print-header {
+        
+    }
+    #print-footer > .container:after {
+        
+    }
+    .no-print {
+		display: none;
+    	content: none;
+	}
+    .page-break {
+        page-break-before: right;
+    }
+    table { page-break-inside : auto; }
+}

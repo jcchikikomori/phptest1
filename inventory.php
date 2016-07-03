@@ -128,7 +128,7 @@ class Inventory
     private function loadItems()
     {
         // remember: the user can log in with username or email address
-        $sql = "SELECT * FROM inventory";
+        $sql = "SELECT * FROM inventory ORDER BY datetime ASC";
         $query = $this->db_connection->prepare($sql);
         $query->execute();
         // Btw that's the weird way to get num_rows in PDO with SQLite:
@@ -150,7 +150,8 @@ class Inventory
     {
         // remember: the user can log in with username or email address
         $sql = "SELECT * FROM inventory ".
-                "WHERE name LIKE :name AND datetime LIKE :date";
+                "WHERE name LIKE :name AND datetime LIKE :date
+                ORDER BY datetime ASC";
                 // "WHERE name LIKE :name";
         $query = $this->db_connection->prepare($sql);
         $query->bindValue(':name', '%'.$_GET['name'].'%');
@@ -182,7 +183,8 @@ class Inventory
     {
         // remember: the user can log in with username or email address
         $sql = "SELECT * FROM inventory
-                WHERE name LIKE :name AND (datetime BETWEEN :from_date AND :to_date)";
+                WHERE name LIKE :name AND (datetime BETWEEN :from_date AND :to_date)
+                ORDER BY datetime ASC";
         $query = $this->db_connection->prepare($sql);
         $query->bindValue(':name', $_GET['name']);
         $query->bindValue(':from_date', $_GET['from_date']);
