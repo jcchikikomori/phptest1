@@ -128,7 +128,7 @@ class Inventory
     private function loadItems()
     {
         // remember: the user can log in with username or email address
-        $sql = "SELECT * FROM inventory ORDER BY datetime ASC";
+        $sql = "SELECT * FROM cases ORDER BY last_trial_date ASC";
         $query = $this->db_connection->prepare($sql);
         $query->execute();
         // Btw that's the weird way to get num_rows in PDO with SQLite:
@@ -149,9 +149,9 @@ class Inventory
     private function loadItemsFiltered()
     {
         // remember: the user can log in with username or email address
-        $sql = "SELECT * FROM inventory ".
-                "WHERE name LIKE :name AND datetime LIKE :date
-                ORDER BY datetime ASC";
+        $sql = "SELECT * FROM cases ".
+                "WHERE accused_name LIKE :name AND filed_date LIKE :date
+                ORDER BY last_trial_date ASC";
                 // "WHERE name LIKE :name";
         $query = $this->db_connection->prepare($sql);
         $query->bindValue(':name', '%'.$_GET['name'].'%');
@@ -176,39 +176,9 @@ class Inventory
         return false;
     }
 
-    /**
-     * @return array|bool
-     */
-    private function loadItemsFilteredWDate()
-    {
-        // remember: the user can log in with username or email address
-        $sql = "SELECT * FROM inventory
-                WHERE name LIKE :name AND (datetime BETWEEN :from_date AND :to_date)
-                ORDER BY datetime ASC";
-        $query = $this->db_connection->prepare($sql);
-        $query->bindValue(':name', $_GET['name']);
-        $query->bindValue(':from_date', $_GET['from_date']);
-        $query->bindValue(':to_date', $_GET['to_date']);
-        $query->execute();
-
-        // Btw that's the weird way to get num_rows in PDO with SQLite:
-        // count($query->fetchAll(PDO::FETCH_NUM))
-        $result = $query->fetchAll();
-        if (!empty($result)) {
-        	// haha
-        	echo 'saas';
-        	var_dump($result);
-            return true;
-        } else {
-            $this->feedback[] = "Result empty";
-        }
-        // default return
-        return false;
-    }
-
     private function deleteItem($id)
     {
-    	$sql = "DELETE FROM inventory
+    	$sql = "DELETE FROM cases
                 WHERE id = :id";
         $query = $this->db_connection->prepare($sql);
         $query->bindValue(':id', $id);
