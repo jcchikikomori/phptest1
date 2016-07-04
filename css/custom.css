@@ -14,6 +14,11 @@ table.sortable thead th.sorttable_nosort {
     cursor: default;
 }
 
+.visible-print {
+    display: none;
+    content: none;
+}
+
 @media print {
     @page
     {
@@ -37,6 +42,9 @@ table.sortable thead th.sorttable_nosort {
 		display: none;
     	content: none;
 	}
+    .visible-print {
+        display: block;
+    }
     .page-break {
         page-break-before: right;
     }

@@ -1,14 +1,3 @@
-<form method="GET" action="index.php">
-	<p>CASE INVENTORY:</p>
-	<div class="no-print">
-		<input type="text" placeholder="NAME?" name="name" />
-		<input type="date" name="date" />
-	  	<input type="submit" name="filter" />
-	</div>
-</form>
-
-<hr />
-
 <?php $this->loadFeedback(); if (!empty($data)) { ?>
 	<table class="sortable" style="width:100%;">
 	  <thead>
